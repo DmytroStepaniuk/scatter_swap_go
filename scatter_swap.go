@@ -1,4 +1,4 @@
-package hasher
+package scatter_swap_go
 
 import (
 	"fmt"
