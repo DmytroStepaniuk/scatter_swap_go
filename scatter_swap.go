@@ -32,10 +32,19 @@ func (s Service) Hash(digit int) []int {
 	return s.swap(arrayOfDigits)
 }
 
-func (s Service) Unhash(digit int) []int {
-	zeroPad := fmt.Sprintf("%010d", digit)
+func (s Service) HashToString(digit int) string {
+	result := s.Hash(digit)
 
-	workingArray := strings.Split(zeroPad, "")
+	var tmpArray []string
+	for _, el := range result {
+		tmpArray = append(tmpArray, strconv.Itoa(el))
+	}
+
+	return strings.Join(tmpArray, "")
+}
+
+func (s Service) Unhash(digit string) []int {
+	workingArray := strings.Split(digit, "")
 	var array []int
 
 	for _, el := range workingArray {
