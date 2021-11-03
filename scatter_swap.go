@@ -1,4 +1,4 @@
-package scatter_swap_go
+package scatter_swap
 
 import (
 	"fmt"
