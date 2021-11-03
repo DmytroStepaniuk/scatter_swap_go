@@ -1,3 +1,3 @@
-module github.com/DmytroStepaniuk/scatter_swap_go/scatter_swap
+module github.com/DmytroStepaniuk/scatter_swap_go
 
 go 1.17
