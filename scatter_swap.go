@@ -58,6 +58,21 @@ func (s Service) Unhash(digit string) []int {
 	return result
 }
 
+func (s Service) UnhashToInt(digit string) int {
+	result := s.Unhash(digit)
+
+	var tmpArray []string
+	for _, el := range result {
+		tmpArray = append(tmpArray, strconv.Itoa(el))
+	}
+
+	digitAsAString := strings.Join(tmpArray, "")
+
+	value, _ := strconv.Atoi(digitAsAString)
+
+	return value
+}
+
 func (s Service) swapperMap(index int) []int {
 	var newArray []int
 	workingArray := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
