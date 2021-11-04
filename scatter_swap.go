@@ -12,12 +12,14 @@ type (
 	}
 )
 
+// New makes new service instance
 func New(spin int) Service {
 	return Service{
 		Spin: spin,
 	}
 }
 
+// Hash returns array of digits
 func (s Service) Hash(digit int) []int {
 	zeroPad := fmt.Sprintf("%010d", digit)
 
@@ -32,6 +34,7 @@ func (s Service) Hash(digit int) []int {
 	return s.swap(arrayOfDigits)
 }
 
+// HashToString returns hashed string
 func (s Service) HashToString(digit int) string {
 	result := s.Hash(digit)
 
@@ -43,6 +46,7 @@ func (s Service) HashToString(digit int) string {
 	return strings.Join(tmpArray, "")
 }
 
+// Unhash de-obfuscates string into array of integers
 func (s Service) Unhash(digit string) []int {
 	workingArray := strings.Split(digit, "")
 	var array []int
@@ -58,6 +62,7 @@ func (s Service) Unhash(digit string) []int {
 	return result
 }
 
+// UnhashToInt de-obfuscates string into integer
 func (s Service) UnhashToInt(digit string) int {
 	result := s.Unhash(digit)
 
