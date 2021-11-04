@@ -26,6 +26,7 @@ func (s Service) Hash(digit int) []int {
 	arrayOfStrings := strings.Split(zeroPad, "")
 	var arrayOfDigits []int
 
+	// convert strings to integers
 	for _, el := range arrayOfStrings {
 		newEl, _ := strconv.Atoi(el)
 		arrayOfDigits = append(arrayOfDigits, newEl)
@@ -38,6 +39,7 @@ func (s Service) Hash(digit int) []int {
 func (s Service) HashToString(digit int) string {
 	result := s.Hash(digit)
 
+	// convert all integers to strings
 	var tmpArray []string
 	for _, el := range result {
 		tmpArray = append(tmpArray, strconv.Itoa(el))
@@ -51,6 +53,7 @@ func (s Service) Unhash(digit string) []int {
 	workingArray := strings.Split(digit, "")
 	var array []int
 
+	// convert all integers to strings
 	for _, el := range workingArray {
 		newEl, _ := strconv.Atoi(el)
 		array = append(array, newEl)
@@ -88,11 +91,11 @@ func (s Service) swapperMap(index int) []int {
 
 		maxJ = maxJ % len(workingArray)
 		for j := 0; j < maxJ; j++ {
-			workingArray = append(workingArray[1:], workingArray[0])
+			workingArray = append(workingArray[1:], workingArray[0]) // rotate array from the right to left
 		}
 
-		newArray = append(newArray, workingArray[lastElIndex])
-		workingArray = workingArray[:lastElIndex]
+		newArray = append(newArray, workingArray[lastElIndex]) // push last element
+		workingArray = workingArray[:lastElIndex]              // drop last element
 	}
 
 	return newArray
@@ -103,9 +106,7 @@ func (s Service) swap(workingArray []int) []int {
 
 	for index, digit := range workingArray {
 		resultArray := s.swapperMap(index)
-
 		result := resultArray[digit]
-
 		newArray = append(newArray, result)
 	}
 
@@ -129,11 +130,11 @@ func (s Service) scatter(workingArray []int) []int {
 		lastElIndex := len(workingArray) - 1
 
 		for j := 0; j < maxJ; j++ {
-			workingArray = append(workingArray[1:], workingArray[0])
+			workingArray = append(workingArray[1:], workingArray[0]) // rotate array from the right to left
 		}
 
-		newArray = append(newArray, workingArray[lastElIndex])
-		workingArray = workingArray[:lastElIndex]
+		newArray = append(newArray, workingArray[lastElIndex]) // push last element
+		workingArray = workingArray[:lastElIndex]              // drop last element
 	}
 
 	return newArray
@@ -142,7 +143,9 @@ func (s Service) scatter(workingArray []int) []int {
 func (s Service) unscatter(workingArray []int) []int {
 	var sumOfDigits int = 0
 
-	for _, el := range workingArray { sumOfDigits += el }
+	for _, el := range workingArray {
+		sumOfDigits += el
+	}
 
 	var newArray []int
 
@@ -155,7 +158,7 @@ func (s Service) unscatter(workingArray []int) []int {
 		maxJ := (sumOfDigits ^ s.Spin) % len(newArray)
 		for j := 0; j < maxJ; j++ {
 			lastElIndex := len(newArray) - 1
-			newArray = append([]int{newArray[lastElIndex]}, newArray[:lastElIndex]...)
+			newArray = append([]int{newArray[lastElIndex]}, newArray[:lastElIndex]...) // rotate array from the left to right
 		}
 	}
 
@@ -168,7 +171,8 @@ func (s Service) unswap(workingArray []int) []int {
 	for idx, digit := range workingArray {
 		array := s.swapperMap(idx)
 
-		for index := len(array)-1; index >= 0 ; index-- {
+		// find in array first match, consider direction from the right to left
+		for index := len(array) - 1; index >= 0; index-- {
 			if digit == array[index] {
 				newArray = append(newArray, index)
 				break
